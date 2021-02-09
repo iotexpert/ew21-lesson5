@@ -25,7 +25,7 @@
 #define TASK_JOYSTICK_STACK_SIZE    (configMINIMAL_STACK_SIZE*4)
 
 /* MQTT message queue will only keep 1 element since we always want to send the latest data */
-#define MESSAGE_QUEUE_ELEMENTS (1)
+#define MOTOR_QUEUE_ELEMENTS (1)
 
 /*******************************************************************************
  * Global variables
@@ -35,7 +35,7 @@ TaskHandle_t cloudTaskHandle;
 TaskHandle_t capSenseTaskHandle;
 TaskHandle_t joystickTaskHandle;
 
-QueueHandle_t mqtt_message_q;
+QueueHandle_t motor_value_q;
 
 /*******************************************************************************
  * Functions
@@ -55,7 +55,7 @@ int main(void)
     printf("Application Started\n");
 
     /* Create queue to send position info from CapSense or Joystick tasks to the cloud task to send over MQTT */
-    mqtt_message_q  = xQueueCreate( MESSAGE_QUEUE_ELEMENTS, sizeof(uint8_t));
+    motor_value_q  = xQueueCreate( MOTOR_QUEUE_ELEMENTS, sizeof(uint8_t));
 
     xTaskCreate(task_cloud,    "Cloud Task",    TASK_CLOUD_STACK_SIZE,    NULL, TASK_CLOUD_PRIORITY,    &cloudTaskHandle);
     xTaskCreate(task_capsense, "CapSense Task", TASK_CAPSENSE_STACK_SIZE, NULL, TASK_CAPSENSE_PRIORITY, &capSenseTaskHandle);

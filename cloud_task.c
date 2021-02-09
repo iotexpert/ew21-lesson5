@@ -229,7 +229,7 @@ void task_cloud(void* param)
     {
 
     	/* Wait for a value in the queue before publishing */
-    	rtos_api_result = xQueueReceive(mqtt_message_q, &motorSpeed, portMAX_DELAY);
+    	rtos_api_result = xQueueReceive(motor_value_q, &motorSpeed, portMAX_DELAY);
 
     	/* Value has been received from the queue (i.e. not a timeout) */
         if(rtos_api_result == pdTRUE)

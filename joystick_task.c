@@ -133,7 +133,7 @@ void task_joystick(void* param)
 
     	/* Read latest Joystick values and print if that is the user's choice for input method */
     	/* The input method is chosen using CapSense buttons */
-    	if(useJoystick == true)
+    	if(useCapSense == false)
     	{
     		/* Read a data frame from the sensor */
 			result = TLx493D_read_frame(&frame);
@@ -166,7 +166,7 @@ void task_joystick(void* param)
 				{
 					printf("Joystick X Angle: %d  Raw  X: %d,  Y: %d,  Z: %d\n", joystick_x, frame.x, frame.y, frame.z);
 					joystick_x_prev = joystick_x;
-			    	rtos_api_result = xQueueOverwrite(mqtt_message_q, (uint8_t*) &joystick_x);
+			    	rtos_api_result = xQueueOverwrite(motor_value_q, (uint8_t*) &joystick_x);
 				}
 			}
 			else
