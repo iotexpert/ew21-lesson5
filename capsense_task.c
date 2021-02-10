@@ -49,17 +49,17 @@
 #include "timers.h"
 #include <stdio.h>
 
-#include "capsense_task.h"
 #include "global.h"
+#include "capsense_task.h"
 
 /*******************************************************************************
 * Global constants
 *******************************************************************************/
-#define CAPSENSE_INTERRUPT_PRIORITY    	(7)
+#define CAPSENSE_INTERRUPT_PRIORITY     (7)
 
-#define CAPSENSE_SCAN_INTERVAL_MS    	(50)   /* in milliseconds*/
+#define CAPSENSE_SCAN_INTERVAL_MS       (20)   /* in milliseconds*/
 
-#define NUM_ELEMENTS 					(1)
+#define NUM_ELEMENTS                    (1)
 
 /*******************************************************************************
 * Function Prototypes
@@ -79,8 +79,6 @@ cy_stc_scb_ezi2c_context_t ezi2c_context;
 cyhal_ezi2c_t sEzI2C;
 cyhal_ezi2c_slave_cfg_t sEzI2C_sub_cfg;
 cyhal_ezi2c_cfg_t sEzI2C_cfg;
-
-bool useCapSense = true;
 
 typedef enum
 {
@@ -144,7 +142,7 @@ void task_capsense(void* param)
     }
     else
     {
-    	printf("Using CapSense for Position\n");
+    	printf("CapSense Initialized\n");
     }
 
     /* Start the timer */
@@ -204,9 +202,7 @@ void task_capsense(void* param)
 *******************************************************************************/
 static void process_touch(void)
 {
-	BaseType_t rtos_api_result;
-
-	/* Variables used to store touch information */
+    /* Variables used to store touch information */
     uint32_t button0_status = 0;
     uint32_t button1_status = 0;
     uint16_t slider_pos = 0;
@@ -234,25 +230,21 @@ static void process_touch(void)
     /* Detect new touch on Button0 */
     if((0u != button0_status) && (0u == button0_status_prev))
     {
-        useCapSense = false;
-    	printf("Using Joystick for Position\n");
+        printf("Button 0 pressed\n");
     }
 
     /* Detect new touch on Button1 */
     if((0u != button1_status) && (0u == button1_status_prev))
     {
-        useCapSense = true;
-    	printf("Using CapSense Slider for Position\n");
+        printf("Button 1 pressed\n");
     }
 
-    /* Detect new touch on slider if that is the chosen output method */
-    if(useCapSense == true)
+    /* Detect new touch on slider */
+    if((0u != slider_touched) && (slider_pos_perv != slider_pos ))
     {
-		if((0u != slider_touched) && (slider_pos_perv != slider_pos ))
-		{
-			printf("Slider position %d\n",slider_pos);
-	    	rtos_api_result = xQueueOverwrite(motor_value_q, (uint8_t*) &slider_pos);
-		}
+        printf("Slider position %d\n",slider_pos);
+        xQueueOverwrite(motor_value_q, (uint8_t*) &slider_pos);
+
     }
 
     /* Update previous touch status */

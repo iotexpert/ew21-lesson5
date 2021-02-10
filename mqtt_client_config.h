@@ -65,13 +65,13 @@
 #define MQTT_WILL_MESSAGE_LENGTH         ( ( uint16_t ) ( sizeof( MQTT_WILL_MESSAGE ) - 1 ) )
 
 /* Set the QoS that is associated with the MQTT publish, and subscribe messages. */
-#define MQTT_MESSAGE_QOS                 ( 1 )
+#define MQTT_MESSAGE_QOS                 ( 0 )
 
 /* The keep-alive interval in seconds used for MQTT ping request. */
 #define MQTT_KEEP_ALIVE_INTERVAL_SECONDS ( 60u )
 
 /* MQTT client identifier */
-#define MQTT_CLIENT_IDENTIFIER     			"YOUR_INITIALS_drone"
+#define MQTT_CLIENT_IDENTIFIER     			"YOUR_INITIALS_remote"
 #define MQTT_CLIENT_IDENTIFIER_LENGTH       ( ( uint16_t ) ( sizeof( MQTT_CLIENT_IDENTIFIER ) - 1 ) )
 
 /* Configure the below credentials in case of a secure MQTT connection. */
