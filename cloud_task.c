@@ -44,6 +44,7 @@
 #include "cycfg.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
 #include "cy_secure_sockets.h"
 #include "cy_wcm.h"
 #include <stdlib.h>
@@ -51,7 +52,6 @@
 
 #include "cy_mqtt_api.h"
 
-#include "global.h"
 #include "cloud_task.h"
 #include "wifi_config.h"
 #include "mqtt_client_config.h"
@@ -214,7 +214,7 @@ void task_cloud(void* param)
     }
     else
     {
-    	printf("Connected to MQTT. Device: %s Topic: %s\n", MQTT_CLIENT_IDENTIFIER, MQTT_TOPIC);
+    	printf("Connected to MQTT, Device: %s Topic: %s\n", MQTT_CLIENT_IDENTIFIER, MQTT_TOPIC);
     }
 
 

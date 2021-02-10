@@ -6,7 +6,6 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "global.h"
 
 #include "cloud_task.h"
 #include "capsense_task.h"

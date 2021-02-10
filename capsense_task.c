@@ -49,8 +49,8 @@
 #include "timers.h"
 #include <stdio.h>
 
-#include "global.h"
 #include "capsense_task.h"
+#include "cloud_task.h"
 
 /*******************************************************************************
 * Global constants

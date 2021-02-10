@@ -49,8 +49,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "global.h"
 #include "joystick_task.h"
+#include "cloud_task.h"
 
 #include "PSoC_TLx_interface.h"
 
