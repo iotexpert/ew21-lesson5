@@ -214,7 +214,7 @@ void task_cloud(void* param)
     }
     else
     {
-    	printf("Connected to MQTT\n");
+    	printf("Connected to MQTT. Device: %s Topic: %s\n", MQTT_CLIENT_IDENTIFIER, MQTT_TOPIC);
     }
 
 
