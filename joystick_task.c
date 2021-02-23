@@ -59,11 +59,10 @@ void joystick_task(void* param)
 			printf("Joystick Position: %d\n", joystick_curr.x);
 	        cloud_sendMotorSpeed(joystick_curr.x); 
 
+			joystick_prev.x = joystick_curr.x;
+			joystick_prev.y = joystick_curr.y;
 		}
-
-		joystick_prev.x = joystick_curr.x;
-		joystick_prev.y = joystick_curr.y;
-
+		
 		vTaskDelay(JOYSTICK_INTERVAL_MS);
     }
 }
