@@ -45,7 +45,7 @@ void joystick_task(void* param)
     result = TLx493D_init();
     if (result != CY_RSLT_SUCCESS)
     {
-    	printf("Joystick not detected. Exiting Joystick task.\n";
+    	printf("Joystick not detected. Exiting Joystick task.\n");
     	vTaskDelete(NULL);
     }
     
