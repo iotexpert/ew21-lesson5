@@ -27,6 +27,7 @@ void joystick_task(void* param)
 {
 	(void)param;
 
+    cy_rslt_t result;
 
     TLx493D_data_frame_t frame;
 	TLxJoyStickXY_t joystick_curr;
@@ -41,7 +42,12 @@ void joystick_task(void* param)
 
 
     /* Configure the TLx493D sensor */
-    TLx493D_init();
+    result = TLx493D_init();
+    if (result != CY_RSLT_SUCCESS)
+    {
+    	printf("Joystick not detected. Exiting Joystick task.\n";
+    	vTaskDelete(NULL);
+    }
     
     /* Set Sensor to Master Control Mode */
     TLx493D_set_operation_mode(TLx493D_OP_MODE_MCM);

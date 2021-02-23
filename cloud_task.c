@@ -18,7 +18,7 @@
 #define CLOUD_MQTT_BROKER        "mqtt.eclipseprojects.io"
 
 
-#define CLOUD_MQTT_CLIENT_PREFIX "arh_remote"
+#define CLOUD_MQTT_CLIENT_PREFIX "remote"
 #define CLOUD_MQTT_TOPIC         "arh_motor_speed"
 
 #define MOTOR_KEY                "motor"
@@ -55,7 +55,7 @@ void cloud_task(void* param)
 void cloud_sendMotorSpeed(int speed)
 {
 	if(motor_value_q)
-		xQueueSend(motor_value_q,&speed,0);
+		xQueueOverwrite(motor_value_q,&speed);
 }
 
 static void cloud_connectWifi()
