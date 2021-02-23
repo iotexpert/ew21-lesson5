@@ -20,6 +20,23 @@ static void capsense_end_of_scan_callback(cy_stc_active_scan_sns_t* active_scan_
 
 static QueueHandle_t capsense_done; // Semaphore set in Capsense Callback End of Scan
 
+/* SysPm callback params */
+cy_stc_syspm_callback_params_t callback_params =
+{
+    .base       = CYBSP_CSD_HW,
+    .context    = &cy_capsense_context
+};
+
+cy_stc_syspm_callback_t capsense_deep_sleep_cb =
+{
+    Cy_CapSense_DeepSleepCallback,
+    CY_SYSPM_DEEPSLEEP,
+    (CY_SYSPM_SKIP_CHECK_FAIL | CY_SYSPM_SKIP_BEFORE_TRANSITION | CY_SYSPM_SKIP_AFTER_TRANSITION),
+    &callback_params,
+    NULL,
+    NULL
+};
+
 /*******************************************************************************
 * Function Name: task_capsense
 ********************************************************************************
@@ -120,6 +137,11 @@ static void capsense_init(void)
     Cy_SysInt_Init(&capSense_intr_config, &capsense_isr);
     NVIC_ClearPendingIRQ(capSense_intr_config.intrSrc);
     NVIC_EnableIRQ(capSense_intr_config.intrSrc);
+
+    /* Initialize the CapSense deep sleep callback functions. */
+    /* See the "MTB CAT1 Peripheral driver library documentation > PDL API Reference > SysPM"
+     * link in the Quick Panel Documentation for information on setting up the SysPm callbacks */
+    Cy_SysPm_RegisterCallback(&capsense_deep_sleep_cb);
 
     Cy_CapSense_RegisterCallback(CY_CAPSENSE_END_OF_SCAN_E,
                                               capsense_end_of_scan_callback, &cy_capsense_context);
