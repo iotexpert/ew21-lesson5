@@ -95,9 +95,6 @@ DEFINES+=CY_RTOS_AWARE
 CY_IGNORE+=$(SEARCH_aws-iot-device-sdk-embedded-C)/libraries/standard/coreHTTP
 CY_IGNORE+=libs/aws-iot-device-sdk-embedded-C/libraries/standard/coreHTTP
 
-CY_IGNORE+=$(SEARCH_mqtt)/source/cy_mqtt_api.c
-CY_IGNORE+=.$(SEARCH_mqtt)/include/cy_mqtt_api.h
-
 # Select softfp or hardfp floating point. Default is softfp.
 VFP_SELECT=
 
